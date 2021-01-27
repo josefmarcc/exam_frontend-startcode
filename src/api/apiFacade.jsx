@@ -12,10 +12,102 @@ function getCourses() {
     });
 }
 
+function getClasses() {
+  const options = makeOptions("GET", true);
+  return fetch(SERVER_URL + "course/classes", options)
+    .then(handleHttpErrors)
+    .catch((err) => {
+      if (err.status) {
+        err.fullError.then((e) => console.log(e.message));
+      } else {
+        console.log("Network error");
+      }
+    });
+}
+
+function getTeachers() {
+  const options = makeOptions("GET", true);
+  return fetch(SERVER_URL + "teacher/teachers", options)
+    .then(handleHttpErrors)
+    .catch((err) => {
+      if (err.status) {
+        err.fullError.then((e) => console.log(e.message));
+      } else {
+        console.log("Network error");
+      }
+    });
+}
+
+// true med i header så den tager token med.
+function addTeacher(teacher) {
+  const options = makeOptions("POST", true, teacher);
+  return fetch(SERVER_URL + "teacher/add", options)
+    .then(handleHttpErrors)
+    .catch((err) => {
+      if (err.status) {
+        err.fullError.then((e) => console.log(e.message));
+      } else {
+        console.log("Network error");
+      }
+    });
+}
+
 // true med i header så den tager token med.
 function addCourse(course) {
   const options = makeOptions("POST", true, course);
   return fetch(SERVER_URL + "course/add", options)
+    .then(handleHttpErrors)
+    .catch((err) => {
+      if (err.status) {
+        err.fullError.then((e) => console.log(e.message));
+      } else {
+        console.log("Network error");
+      }
+    });
+}
+
+function addClassEntity(classEntity) {
+  const options = makeOptions("POST", true, classEntity);
+  return fetch(SERVER_URL + "course/addTo/class", options)
+    .then(handleHttpErrors)
+    .catch((err) => {
+      if (err.status) {
+        err.fullError.then((e) => console.log(e.message));
+      } else {
+        console.log("Network error");
+      }
+    });
+}
+
+function updateCourse(course) {
+  const options = makeOptions("PUT", true, course);
+  return fetch(SERVER_URL + "course/update/class", options)
+    .then(handleHttpErrors)
+    .catch((err) => {
+      if (err.status) {
+        err.fullError.then((e) => console.log(e.message));
+      } else {
+        console.log("Network error");
+      }
+    });
+}
+
+function updateTeacher(teacher) {
+  const options = makeOptions("PUT", true, teacher);
+  return fetch(SERVER_URL + "teacher/update/teacher", options)
+    .then(handleHttpErrors)
+    .catch((err) => {
+      if (err.status) {
+        err.fullError.then((e) => console.log(e.message));
+      } else {
+        console.log("Network error");
+      }
+    });
+}
+
+function deleteCourse(course) {
+  const options = makeOptions("DELETE", true, course);
+  return fetch(SERVER_URL + "course/delete/" + course, options)
     .then(handleHttpErrors)
     .catch((err) => {
       if (err.status) {
@@ -50,6 +142,13 @@ const apiFacade = {
   getCourses,
   addCourse,
   getCourseByName,
+  addClassEntity,
+  getClasses,
+  updateCourse,
+  getTeachers,
+  addTeacher,
+  updateTeacher,
+  deleteCourse,
 };
 
 const makeOptions = (method, addToken, body) => {

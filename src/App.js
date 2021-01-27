@@ -12,6 +12,7 @@ import Home from "./pages/Home";
 import Booking from "./pages/Booking";
 import NoMatch from "./components/NoMatch";
 import AdminCourse from "./pages/AdminCourse";
+import AdminTeacher from "./pages/AdminTeacher";
 import facade from "./api/userFacade";
 import { LogIn, LoggedIn } from "./pages/Login";
 import jwt_decode from "jwt-decode";
@@ -70,6 +71,9 @@ function App() {
           </Route>
           <PrivateRoute path="/admin-course">
             <AdminCourse />
+          </PrivateRoute>
+          <PrivateRoute path="/admin-teacher">
+            <AdminTeacher />
           </PrivateRoute>
           <Route path="/login-out">
             {!loggedIn ? (

@@ -14,16 +14,16 @@ function NavBar({ loginMsg, isLoggedIn, user }) {
             Home
           </NavLink>
         </li>
-        <li>
-          <NavLink activeClassName="active" to="/booking">
-            Booking
-          </NavLink>
-        </li>
         {isLoggedIn && (
           <>
             <li>
               <NavLink activeClassName="active" to="/admin-course">
                 Admin Course
+              </NavLink>
+            </li>
+            <li>
+              <NavLink activeClassName="active" to="/admin-teacher">
+                Admin Teacher
               </NavLink>
             </li>
           </>

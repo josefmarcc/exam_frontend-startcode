@@ -1,6 +1,8 @@
 import apiFacade from "../api/apiFacade";
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
+import AddClassModal from "../components/AddClassModal";
+import EditCourseModal from "../components/EditCourseModal";
 
 export default function AdminCourse() {
   // Course to search for in the Facade
@@ -11,6 +13,16 @@ export default function AdminCourse() {
     {
       courseName: "",
       description: "",
+    },
+  ]);
+
+  // Full Class List
+  const [classList, setClassList] = useState([
+    {
+      courseName: "",
+      description: "",
+      semester: "",
+      numberOfStudents: "",
     },
   ]);
 
@@ -26,9 +38,10 @@ export default function AdminCourse() {
     description: "",
   });
 
-  // Fetches Course list
+  // Fetches Course and Class list
   const fetchData = () => {
     apiFacade.getCourses().then((data) => setCourseList(data));
+    apiFacade.getClasses().then((data) => setClassList(data));
   };
   useEffect(() => {
     fetchData();
@@ -72,6 +85,13 @@ export default function AdminCourse() {
     apiFacade.addCourse(courseInfo);
   };
 
+  const deleteCourse = (e) => {
+    e.preventDefault();
+    apiFacade.deleteCourse(selectedCourse.courseName);
+    console.log(selectedCourse.courseName);
+    fetchData();
+  };
+
   return (
     <div className="container-fluid padding">
       <div className="row">
@@ -90,12 +110,29 @@ export default function AdminCourse() {
               <tr>
                 <th scope="col">Course Name</th>
                 <th scope="col">Description</th>
+                <th scope="col">Add a class</th>
+                <th scope="col">Edit a course</th>
+                <th scope="col">Delete</th>
               </tr>
             </thead>
             <tbody>
               <tr key={selectedCourse.courseName}>
                 <td>{selectedCourse.courseName}</td>
                 <td>{selectedCourse.description}</td>
+                <td>
+                  <AddClassModal selectedCourse={selectedCourse} />
+                </td>
+                <td>
+                  <EditCourseModal selectedCourse={selectedCourse} />
+                </td>
+                <td>
+                  <button
+                    className="btn btn-primary ml-2"
+                    onClick={deleteCourse}
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -116,24 +153,28 @@ export default function AdminCourse() {
                 Add Course
               </button>
             </form>
-            <h4 className="mt-5">Full Course List</h4>
+            <h4 className="mt-5">Full Course List with classes</h4>
             <table className="table">
               <thead>
                 <tr>
                   <th scope="col">Course Name</th>
                   <th scope="col">Description</th>
+                  <th scope="col">Class(Semester)</th>
+                  <th scope="col">Number Of Students</th>
                 </tr>
               </thead>
               <tbody>
-                {courseList && courseList.length > 0 ? (
-                  courseList.map((c) => (
+                {classList && classList.length > 0 ? (
+                  classList.map((c) => (
                     <tr key={c.courseName}>
                       <td>{c.courseName}</td>
                       <td>{c.description}</td>
+                      <td>{c.semester}</td>
+                      <td>{c.numberOfStudents}</td>
                     </tr>
                   ))
                 ) : (
-                  <p>No courses</p>
+                  <p>No classes</p>
                 )}
               </tbody>
             </table>
