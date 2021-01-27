@@ -22,8 +22,8 @@ function NavBar({ loginMsg, isLoggedIn, user }) {
         {isLoggedIn && (
           <>
             <li>
-              <NavLink activeClassName="active" to="/secure-page">
-                Secure page
+              <NavLink activeClassName="active" to="/admin-course">
+                Admin Course
               </NavLink>
             </li>
           </>

@@ -29,26 +29,24 @@ function userFacade() {
       username: user,
       password: password,
     });
-    return fetch(SERVER_URL + "/api/login", options)
+    return fetch(SERVER_URL + "login", options)
       .then(handleHttpErrors)
       .then((res) => {
         setToken(res.token);
       });
   };
 
-  function addUser (user,password){
+  function addUser(user, password) {
     const options = makeOptions("POST", true, {
       userName: user,
       userPass: password,
     });
-    return fetch(SERVER_URL+ "/api/info" ,options)
-    .then(handleHttpErrors)
-
-}
+    return fetch(SERVER_URL + "info", options).then(handleHttpErrors);
+  }
 
   const fetchData = () => {
     const options = makeOptions("GET", true); //True add's the token
-    return fetch(SERVER_URL + "/api/info/user", options).then(handleHttpErrors);
+    return fetch(SERVER_URL + "info/user", options).then(handleHttpErrors);
   };
 
   const makeOptions = (method, addToken, body) => {

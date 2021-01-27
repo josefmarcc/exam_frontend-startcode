@@ -11,7 +11,7 @@ import Navbar from "./components/NavBar";
 import Home from "./pages/Home";
 import Booking from "./pages/Booking";
 import NoMatch from "./components/NoMatch";
-import SecurePage from "./pages/SecurePage";
+import AdminCourse from "./pages/AdminCourse";
 import facade from "./api/userFacade";
 import { LogIn, LoggedIn } from "./pages/Login";
 import jwt_decode from "jwt-decode";
@@ -43,7 +43,7 @@ function App() {
       <Route
         {...rest}
         render={() => {
-          return loggedIn === true && user.roles === "admin,user" ? (
+          return loggedIn === true && user.roles === "admin" ? (
             children
           ) : (
             <Redirect to="/login-out" />
@@ -68,8 +68,8 @@ function App() {
           <Route exact path="/booking">
             <Search isLoggedIn={loggedIn} />
           </Route>
-          <PrivateRoute path="/secure-page">
-            <SecurePage />
+          <PrivateRoute path="/admin-course">
+            <AdminCourse />
           </PrivateRoute>
           <Route path="/login-out">
             {!loggedIn ? (
