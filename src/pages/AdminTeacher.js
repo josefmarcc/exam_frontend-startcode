@@ -14,7 +14,6 @@ export default function AdminTeacher() {
 
   // Teacher info to Add a new Teacher
   const [teacherInfo, setTeacherInfo] = useState({
-    id: "",
     name: "",
     email: "",
   });
