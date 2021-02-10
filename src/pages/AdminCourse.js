@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import AddClassModal from "../components/AddClassModal";
 import EditCourseModal from "../components/EditCourseModal";
+import "./AdminCourse.css";
 
 export default function AdminCourse() {
   // Course to search for in the Facade
@@ -137,7 +138,7 @@ export default function AdminCourse() {
             </tbody>
           </table>
           <h4>Add a new course</h4>
-          <div>
+          <div className="test">
             <form onChange={onChangeCourse}>
               <input
                 className="mb-2"
